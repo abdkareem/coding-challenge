@@ -1,0 +1,21 @@
+Phuket - A popular destination during cold wave.
+Among many tourist destinations across the globe, Phuket is increasingly becoming popular during late calendar months. The graph shows how Phuket’s warm temperature plays deciding factor for tourists planning to have a Warm Christmas / New Year.
+
+All cities (default) graph shows average temperature* for popular tourist destinations across the world.
+
+Each colored line represents (on All cities / default graph) one city and dots on that line represent dates**. To compare cities temperature on a particular date, hover around any dot on any line. 
+
+Hover on any legend below the X-axis to see the plot for selected city.
+
+To compare Phuket city (main city) temperature with other cities, click on the legends respective to the cities below the x-axis by keeping only the cities that you want to compare as selected / active. Make sure that unwanted cities are deselected / inactive .
+OR
+Click on the city specific button to compare desired city with Phuket city.
+
+
+To return back to default graph (all cities) select all the cities below the x axis.
+
+
+*All temperatures are in fahrenheit units.
+** 0,1,2,3 on X-axis represents dates in increasing order.
+
+jQuery, Bootstrap, D3Js and C3Js libraries are used.
