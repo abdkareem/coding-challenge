@@ -18,7 +18,10 @@ To return back to default graph (all cities) select all the cities below the x a
 *All temperatures are in fahrenheit units.
 ** 0,1,2,3 on X-axis represents dates in increasing order.
 
-jQuery, Bootstrap, D3Js and C3Js libraries are used.
+Technologies used:
+C3js for visualization,
+Ajax to make API calls to openweathermaporg server,
+Bootsrap and HTML 5.
 
 To clone the repository to your local directory
 - Navigate to your preferred location
