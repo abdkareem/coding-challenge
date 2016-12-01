@@ -1,3 +1,5 @@
+Web browser based application for real time weather forecast visualization using C3js.
+
 Phuket - A popular destination during cold wave.
 Among many tourist destinations across the globe, Phuket is increasingly becoming popular during late calendar months. The graph shows how Phuket’s warm temperature plays deciding factor for tourists planning to have a Warm Christmas / New Year.
 
