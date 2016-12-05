@@ -1,3 +1,5 @@
+Web browser based application for real time weather forecast visualization using C3js.
+
 Phuket - A popular destination during cold wave.
 Among many tourist destinations across the globe, Phuket is increasingly becoming popular during late calendar months. The graph shows how Phuket’s warm temperature plays deciding factor for tourists planning to have a Warm Christmas / New Year.
 
@@ -18,4 +20,13 @@ To return back to default graph (all cities) select all the cities below the x a
 *All temperatures are in fahrenheit units.
 ** 0,1,2,3 on X-axis represents dates in increasing order.
 
-jQuery, Bootstrap, D3Js and C3Js libraries are used.
+Technologies used:
+C3js for visualization,
+Ajax to make API calls to openweathermaporg server,
+Bootsrap and HTML 5.
+
+To clone the repository to your local directory
+- Navigate to your preferred location
+- Then use, git clone https://github.com/abdkareem/coding-challenge_Bb.git
+- Using any modern browser, open coding-challenge.html
+Note: coding-challenge.html uses external js libraries through CDN and an active internet connection is required to view the result.
