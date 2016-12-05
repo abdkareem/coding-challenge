@@ -58,8 +58,8 @@
     <div id="chart"></div>
   </div>
 <script>
-    /*Make API call, parse data to array,
-    create final array for graph*/
+
+    /*Make API call, parse data to array, create final array for graph*/
     var vn = [];
     var nyc = [];
     var goa = [];
@@ -69,6 +69,7 @@
     var lon = []
     var values = [];
     var dum = [];
+
       $(document).ready(function(){
         $.ajax({url: "http://api.openweathermap.org/data/2.5/forecast/daily?id=1566083&units=imperial&cnt=16&appid=594c02ebb0b04deddc5df03301a4eb44", success: function(result){
             vn.push(result["city"]["name"],result["list"][0]["temp"]["day"],result["list"][1]["temp"]["day"],result["list"][2]["temp"]["day"],result["list"][3]["temp"]["day"],result["list"][4]["temp"]["day"],
@@ -87,24 +88,12 @@
             result["list"][5]["temp"]["day"],result["list"][6]["temp"]["day"]);
             }});
         $.ajax({url: "http://api.openweathermap.org/data/2.5/forecast/daily?id=2643741&units=imperial&cnt=16&appid=594c02ebb0b04deddc5df03301a4eb44", success: function(result){
-            lon.push(result["city"]["name"]);
-            lon.push(result["list"][0]["temp"]["day"]);
-            lon.push(result["list"][1]["temp"]["day"]);
-            lon.push(result["list"][2]["temp"]["day"]);
-            lon.push(result["list"][3]["temp"]["day"]);
-            lon.push(result["list"][4]["temp"]["day"]);
-            lon.push(result["list"][5]["temp"]["day"]);
-            lon.push(result["list"][6]["temp"]["day"]);
+            lon.push(result["city"]["name"],result["list"][0]["temp"]["day"],result["list"][1]["temp"]["day"],result["list"][2]["temp"]["day"],result["list"][3]["temp"]["day"],result["list"][4]["temp"]["day"],
+            result["list"][5]["temp"]["day"],result["list"][6]["temp"]["day"]);
             }});
         $.ajax({url: "http://api.openweathermap.org/data/2.5/forecast/daily?id=1816670&units=imperial&cnt=16&appid=594c02ebb0b04deddc5df03301a4eb44", success: function(result){
-            cn.push(result["city"]["name"]);
-            cn.push(result["list"][0]["temp"]["day"]);
-            cn.push(result["list"][1]["temp"]["day"]);
-            cn.push(result["list"][2]["temp"]["day"]);
-            cn.push(result["list"][3]["temp"]["day"]);
-            cn.push(result["list"][4]["temp"]["day"]);
-            cn.push(result["list"][5]["temp"]["day"]);
-            cn.push(result["list"][6]["temp"]["day"]);
+            cn.push(result["city"]["name"],result["list"][0]["temp"]["day"],result["list"][1]["temp"]["day"],result["list"][2]["temp"]["day"],result["list"][3]["temp"]["day"],result["list"][4]["temp"]["day"],
+            result["list"][5]["temp"]["day"],result["list"][6]["temp"]["day"]);
             }});
         $.ajax({url: "http://api.openweathermap.org/data/2.5/forecast/daily?id=1151254&units=imperial&cnt=16&appid=594c02ebb0b04deddc5df03301a4eb44", success: function(result){
             phk.push(result["city"]["name"]);
@@ -120,35 +109,36 @@
 
             $("#parent").on("change", "#ac", function(){
                 var chart = c3.generate({
-        bindto: ('#chart'),
-        data: {
-            columns: values 
-        },
-        axis: {
-            y: {
-                label: { 
-                    text: 'Temp. in Fahrenheit',
-                    position: 'outer-middle'
-                }
-             },
-             x: {
-                label: {
-                    text: 'Current day + 1',
-                    position: 'outer-middle'
-                }
-             }
-        }
-        });
+                bindto: ('#chart'),
+                data: {
+                    columns: values 
+                },
+                axis: {
+                    y: {
+                        label: { 
+                            text: 'Temp. in Fahrenheit',
+                            position: 'outer-middle'
+                            }
+                        },
+                    x: {
+                        label: {
+                            text: 'Current day + 1',
+                            position: 'outer-middle'
+                            }
+                        }
+                    }
+                });
             });
 
-            $("#parent").on("change", "#vn", vvn);
-            $("#parent").on("change", "#cn", vcn);
-            $("#parent").on("change", "#goa", vgoa);
-            $("#parent").on("change", "#sfo", vsfo);
-            $("#parent").on("change", "#nyc", vnyc);
-            $("#parent").on("change", "#lon", vlon);
+            $("#parent").on("change", "#vn", {plotvalues: vn}, vvn);
+            $("#parent").on("change", "#cn", {plotvalues: cn}, vvn);
+            $("#parent").on("change", "#goa", {plotvalues: goa}, vvn);
+            $("#parent").on("change", "#sfo", {plotvalues: sfo}, vvn);
+            $("#parent").on("change", "#nyc", {plotvalues: nyc}, vvn);
+            $("#parent").on("change", "#lon", {plotvalues: lon}, vvn);
         });
-    /*Ploting graph for data using c3js librarie*/
+
+    /*Ploting default (main) graph for all cities data using c3js librarie*/
     function default_graph() {
         var chart = c3.generate({
         bindto: ('#chart'),
@@ -156,108 +146,40 @@
             columns: values 
         },
         axis: {
-            y: {
-                label: { 
-                    text: 'Temp. in Fahrenheit',
-                    position: 'outer-middle'
+                y: {
+                    label: { 
+                        text: 'Temp. in Fahrenheit',
+                        position: 'outer-middle'
+                        }
+                    },
+                x: {
+                    label: {
+                        text: 'Current day + 1',
+                        position: 'outer-middle'
+                        }
+                     }
                 }
-             },
-             x: {
-                label: {
-                    text: 'Current day + 1',
-                    position: 'outer-middle'
+            });
+   }
+
+   /*One-to-one comparision between Phuket and other cities around the globe*/
+   function vvn(event) {
+       var chart = c3.generate({
+            bindto: ('#chart'),
+            data: {
+                    columns: [ [phk[0],phk[1],phk[2], phk[3],phk[4],phk[5] ], [event.data.plotvalues[0],event.data.plotvalues[1],event.data.plotvalues[2], event.data.plotvalues[3],event.data.plotvalues[4],event.data.plotvalues[5] ] ],
+                    type: 'bar'
+                },
+            bar: {
+                    width: {
+                    ratio: 0.5
+                    }
                 }
-             }
-        }
         });
    }
+
    setTimeout(default_graph,1000);
-   //default_graph();
-   /*Comparing Phuket city with other cities around the globe*/
-   function vvn() {
-       var chart = c3.generate({
-                bindto: ('#chart'),
-                data: {
-                    columns: [ [phk[0],phk[1],phk[2], phk[3],phk[4],phk[5] ], [vn[0],vn[1],vn[2], vn[3],vn[4],vn[5] ] ],
-                    type: 'bar'
-                    },
-                    bar: {
-                        width: {
-                        ratio: 0.5
-                        }
-                    }
-                });
-   }
-   function vcn() {
-       var chart = c3.generate({
-                bindto: ('#chart'),
-                data: {
-                    columns: [ [phk[0],phk[1],phk[2], phk[3],phk[4],phk[5] ], [cn[0],cn[1],cn[2], cn[3],cn[4],cn[5] ] ],
-                    type: 'bar'
-                    },
-                    bar: {
-                        width: {
-                        ratio: 0.5
-                        }
-                    }
-                });
-   }
-   function vgoa() {
-       var chart = c3.generate({
-                bindto: ('#chart'),
-                data: {
-                    columns: [ [phk[0],phk[1],phk[2], phk[3],phk[4],phk[5] ], [goa[0],goa[1],goa[2], goa[3],goa[4],goa[5] ] ],
-                    type: 'bar'
-                    },
-                    bar: {
-                        width: {
-                        ratio: 0.5
-                        }
-                    }
-                });
-   }
-   function vsfo() {
-       var chart = c3.generate({
-                bindto: ('#chart'),
-                data: {
-                    columns: [ [phk[0],phk[1],phk[2], phk[3],phk[4],phk[5] ], [sfo[0],sfo[1],sfo[2], sfo[3],sfo[4],sfo[5] ] ],
-                    type: 'bar'
-                    },
-                    bar: {
-                        width: {
-                        ratio: 0.5
-                        }
-                    }
-                });
-   }
-   function vnyc() {
-       var chart = c3.generate({
-                bindto: ('#chart'),
-                data: {
-                    columns: [ [phk[0],phk[1],phk[2], phk[3],phk[4],phk[5] ], [nyc[0],nyc[1],nyc[2], nyc[3],nyc[4],nyc[5] ] ],
-                    type: 'bar'
-                    },
-                    bar: {
-                        width: {
-                        ratio: 0.5
-                        }
-                    }
-                });
-   }
-   function vlon() {
-       var chart = c3.generate({
-                bindto: ('#chart'),
-                data: {
-                    columns: [ [phk[0],phk[1],phk[2], phk[3],phk[4],phk[5] ], [lon[0],lon[1],lon[2], lon[3],lon[4],lon[5] ] ],
-                    type: 'bar'
-                    },
-                    bar: {
-                        width: {
-                        ratio: 0.5
-                        }
-                    }
-                });
-   }
+
 </script>
 </body>
 </html>
